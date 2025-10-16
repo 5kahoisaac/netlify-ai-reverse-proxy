@@ -41,7 +41,7 @@ jspm_packages/
 .netlify/
 
 # Speckit
-..specify/
+.specify/
 
 # Amazon Q
 .amazonq/

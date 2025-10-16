@@ -1,0 +1,153 @@
+# Speckit Implementation
+
+## Architecture Overview
+
+### Serverless Function Design
+- **Platform**: Netlify Functions (AWS Lambda under the hood)
+- **Runtime**: Node.js with esbuild bundler
+- **Pattern**: Single proxy function handling all routes
+- **Routing**: JSON configuration-driven route matching
+
+### Core Implementation
+
+#### Proxy Function (`netlify/functions/proxy.js`)
+```javascript
+// Route matching: path.startsWith(route.route)
+// URL construction: route.url + targetPath + queryString
+// Header forwarding: Spread operator with exclusions
+```
+
+**Key Features:**
+- Dynamic route resolution from `routes.json`
+- CORS preflight handling for browser compatibility
+- Header passthrough (auth, content-type, custom headers)
+- Query parameter preservation
+- Error handling with proper HTTP status codes
+
+#### Configuration (`routes.json`)
+```json
+[
+  { "route": "/gemini", "url": "https://generativelanguage.googleapis.com" },
+  { "route": "/claude", "url": "https://api.anthropic.com" },
+  { "route": "/openai", "url": "https://api.openai.com" }
+]
+```
+
+**Design Rationale:**
+- JSON over hardcoded routes for maintainability
+- Simple object schema for easy extension
+- Route prefix matching for flexible API versioning
+
+### Deployment Configuration
+
+#### Netlify Setup (`netlify.toml`)
+```toml
+# Catch-all routing: /* → /.netlify/functions/proxy
+# X-Robots-Tag: Global SEO protection
+# esbuild: Fast bundling for Node.js functions
+```
+
+**Security Measures:**
+- No API key storage (client-side authentication)
+- X-Robots-Tag prevents search engine indexing
+- CORS headers for controlled access
+- Error message sanitization
+
+### Request Flow
+
+1. **Client Request** → `https://proxy.netlify.app/gemini/v1/models`
+2. **Route Matching** → Find `/gemini` in routes.json
+3. **URL Construction** → `https://generativelanguage.googleapis.com/v1/models`
+4. **Header Forwarding** → Pass auth headers, remove proxy headers
+5. **API Call** → Fetch from target API with original payload
+6. **Response Proxy** → Return API response with CORS headers
+
+### Performance Optimizations
+
+- **Cold Start**: Minimal dependencies (no Express.js)
+- **Bundle Size**: esbuild for efficient packaging
+- **Memory Usage**: Streaming response handling
+- **Caching**: Leverages Netlify's edge network
+
+### Error Handling
+
+```javascript
+// Network errors: 500 with error message
+// Route not found: 404 with route error
+// CORS preflight: 200 with proper headers
+```
+
+### Deployment Troubleshooting
+
+#### Common Issues & Solutions
+
+**TOML Syntax Errors:**
+- Issue: Stray characters in netlify.toml
+- Solution: Validate TOML syntax, remove extra characters
+- Prevention: Use proper text editor with TOML support
+
+**Function Path Issues:**
+- Issue: Functions not found in expected directory
+- Solution: Ensure `netlify/functions/` directory structure
+- Verification: Check `functions = "netlify/functions"` in config
+
+**Build Failures:**
+- Issue: Missing dependencies or syntax errors
+- Solution: Test locally with `netlify dev`
+- Debug: Check Netlify build logs for specific errors
+
+### Compliance & Standards
+
+#### Code Quality
+- Minimal, focused implementation
+- Clear variable naming
+- Proper error boundaries
+- Consistent formatting
+
+#### Security
+- No sensitive data storage
+- Header sanitization
+- CORS policy enforcement
+- Bot protection via X-Robots-Tag
+
+#### Performance
+- Serverless architecture for auto-scaling
+- Edge deployment for low latency
+- Minimal runtime dependencies
+- Efficient request forwarding
+
+### Extension Points
+
+#### Adding New AI Services
+1. Add entry to `routes.json`
+2. No code changes required
+3. Automatic route registration
+
+#### Custom Headers
+- Modify header forwarding logic in proxy function
+- Add service-specific header handling if needed
+
+#### Monitoring
+- Netlify provides built-in function logs
+- Error tracking via response status codes
+- Performance metrics through Netlify dashboard
+
+### Deployment Strategy
+
+1. **Development**: `netlify dev` for local testing
+2. **Configuration Validation**: Check TOML syntax before commit
+3. **Staging**: Git branch deployment
+4. **Production**: Main branch auto-deployment
+5. **Rollback**: Git revert with instant deployment
+
+### Production Readiness Checklist
+
+- [x] TOML configuration validated
+- [x] Function directory structure correct
+- [x] Route configuration tested
+- [x] CORS headers implemented
+- [x] Error handling in place
+- [x] Security headers configured
+- [x] No hardcoded secrets
+
+This implementation prioritizes simplicity, maintainability, and performance while meeting all functional requirements for bypassing AI API region restrictions. All deployment issues have been resolved and the system is production-ready.

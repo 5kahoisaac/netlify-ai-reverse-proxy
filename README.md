@@ -2,6 +2,18 @@
 
 A minimal reverse proxy for AI model APIs to bypass region restrictions, deployed on Netlify Functions. The default region for Netlify functions is us-east-2 (Ohio) for sites created after October 4, 2023, which helps access AI services that may be restricted in your region.
 
+## Table of Contents
+
+- [Setup](#setup)
+- [Deployment](#deployment)
+- [Usage](#usage)
+  - [Gemini API](#gemini-api)
+  - [Claude API](#claude-api)
+  - [OpenAI API](#openai-api)
+- [Configuration](#configuration)
+  - [Environment Variables](#environment-variables)
+  - [Routes Configuration](#routes-configuration)
+
 ## Setup
 
 ```bash
@@ -75,6 +87,19 @@ fetch('https://your-site.netlify.app/openai/v1/chat/completions', {
 ```
 
 ## Configuration
+
+### Environment Variables
+
+Configure your AI clients to use the proxy by setting these environment variables:
+
+```bash
+export PROXY_API_BASE_URL=https://your-site.netlify.app
+export GEMINI_BASE_URL=$PROXY_API_BASE_URL/gemini
+export ANTHROPIC_BASE_URL=$PROXY_API_BASE_URL/claude
+export OPENAI_BASE_URL=$PROXY_API_BASE_URL/openai
+```
+
+### Routes Configuration
 
 Routes are configured in `routes.json`. Add new AI services by adding entries to the array:
 

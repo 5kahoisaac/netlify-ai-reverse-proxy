@@ -1,6 +1,6 @@
 # AI Proxy Server
 
-A minimal reverse proxy for AI model APIs to bypass region restrictions, deployed on Netlify Functions.
+A minimal reverse proxy for AI model APIs to bypass region restrictions, deployed on Netlify Functions. The default region for Netlify functions is us-east-2 (Ohio) for sites created after October 4, 2023, which helps access AI services that may be restricted in your region.
 
 ## Setup
 

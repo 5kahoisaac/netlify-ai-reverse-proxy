@@ -1,0 +1,101 @@
+# Speckit Constitution
+
+## Code Quality Principles
+
+### 1. Clarity Over Cleverness
+- Write code that is immediately understandable
+- Prefer explicit over implicit behavior
+- Use descriptive names for variables, functions, and classes
+- Avoid unnecessary complexity and premature optimization
+
+### 2. Consistency Standards
+- Follow established coding conventions and style guides
+- Maintain consistent patterns across the codebase
+- Use automated formatting tools (prettier, eslint, etc.)
+- Document deviations from standards with clear reasoning
+
+### 3. Maintainability First
+- Write modular, loosely coupled components
+- Implement proper error handling and logging
+- Keep functions small and focused on single responsibilities
+- Refactor regularly to prevent technical debt accumulation
+
+## Testing Standards
+
+### 4. Comprehensive Test Coverage
+- Maintain minimum 80% code coverage for critical paths
+- Write tests before or alongside feature implementation
+- Cover edge cases and error conditions
+- Include integration tests for component interactions
+
+### 5. Test Quality Requirements
+- Tests must be fast, reliable, and deterministic
+- Use descriptive test names that explain expected behavior
+- Isolate tests from external dependencies using mocks/stubs
+- Regularly review and update test suites
+
+### 6. Testing Pyramid Adherence
+- Prioritize unit tests (70%) for business logic
+- Include integration tests (20%) for component interactions
+- Maintain minimal end-to-end tests (10%) for critical user flows
+- Automate all tests in CI/CD pipeline
+
+## User Experience Consistency
+
+### 7. Interface Uniformity
+- Maintain consistent visual design patterns
+- Use standardized component libraries and design systems
+- Ensure consistent behavior across similar interactions
+- Follow platform-specific UI/UX conventions
+
+### 8. Accessibility Requirements
+- Meet WCAG 2.1 AA accessibility standards
+- Implement proper semantic HTML and ARIA labels
+- Ensure keyboard navigation support
+- Test with screen readers and assistive technologies
+
+### 9. User-Centered Design
+- Validate design decisions with user research and testing
+- Prioritize user needs over technical convenience
+- Provide clear feedback for user actions
+- Design for progressive disclosure and graceful degradation
+
+## Performance Requirements
+
+### 10. Response Time Standards
+- API responses must complete within 200ms for 95th percentile
+- Page load times must not exceed 3 seconds on 3G connections
+- Interactive elements must respond within 100ms
+- Database queries must be optimized and indexed appropriately
+
+### 11. Resource Efficiency
+- Minimize memory usage and prevent memory leaks
+- Optimize bundle sizes and implement code splitting
+- Use efficient algorithms and data structures
+- Monitor and profile performance regularly
+
+### 12. Scalability Considerations
+- Design for horizontal scaling from the start
+- Implement proper caching strategies
+- Use asynchronous processing for heavy operations
+- Plan for graceful degradation under load
+
+## Enforcement and Governance
+
+### 13. Code Review Requirements
+- All code changes require peer review before merging
+- Reviews must verify adherence to these principles
+- Automated checks must pass before review approval
+- Document exceptions with clear justification
+
+### 14. Continuous Monitoring
+- Implement automated quality gates in CI/CD
+- Monitor performance metrics in production
+- Regular audits of code quality and technical debt
+- User experience monitoring and feedback collection
+
+### 15. Evolution and Adaptation
+- Review and update constitution quarterly
+- Incorporate lessons learned from incidents and retrospectives
+- Adapt standards based on technology and team growth
+- Maintain backward compatibility when possible

@@ -1,0 +1,14 @@
+[
+  {
+    "route": "/gemini",
+    "url": "https://generativelanguage.googleapis.com"
+  },
+  {
+    "route": "/claude",
+    "url": "https://api.anthropic.com"
+  },
+  {
+    "route": "/openai",
+    "url": "https://api.openai.com"
+  }
+]

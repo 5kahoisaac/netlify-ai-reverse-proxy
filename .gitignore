@@ -19,6 +19,9 @@ pids
 *.pid
 *.seed
 
+# IDEs
+.idea
+
 # Coverage directory used by tools like istanbul
 coverage/
 

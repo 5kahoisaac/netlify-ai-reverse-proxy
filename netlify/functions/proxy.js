@@ -43,7 +43,7 @@ exports.handler = async (event, context) => {
         'x-forwarded-for': undefined,
         'x-forwarded-proto': undefined
       },
-      body: httpMethod !== 'GET' ? body : undefined
+      body,
     });
 
     const responseBody = await response.text();
